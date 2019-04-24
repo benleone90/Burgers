@@ -1,13 +1,13 @@
 var connection = require("../config/connection.js");
 
-function printQuestionMarks(num) {
-  var arr = [];
+// function printQuestionMarks(num) {
+//   var arr = [];
 
-  for (var i = 0; i < num; i++) {
-    arr.push("?");
-  }
-  return arr.toString();
-}
+//   for (var i = 0; i < num; i++) {
+//     arr.push("?");
+//   }
+//   return arr.toString();
+// }
 
 function objToSql(ob) {
   var arr = [];
@@ -41,9 +41,9 @@ var orm = {
     queryString += " (";
     queryString += cols.toString();
     queryString += ") ";
-    queryString += "VALUES (";
-    queryString += printQuestionMarks(vals.length);
-    queryString += ") ";
+    queryString += "VALUES ('";
+    queryString += vals;
+    queryString += "') ";
 
     console.log(queryString);
 
@@ -58,7 +58,6 @@ var orm = {
 
   update: function(table, objColVals, condition, cb) {
     var queryString = "UPDATE " + table;
-
     queryString += " SET ";
     queryString += objToSql(objColVals);
     queryString += " WHERE ";

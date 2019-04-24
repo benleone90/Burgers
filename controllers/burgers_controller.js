@@ -15,13 +15,8 @@ router.get("/", function(req, res) {
 });
 
 router.post("/api/burgers", function(req, res) {
-  burger.create(
-    ["burger_name", "devoured"],
-    [req.body.burger_name, req.body.devoured],
-    function(result) {
-      res.json({ id: result.insertID });
-    }
-  );
+  burger.create(["burger_name"], [req.body.burger_name], function(result) {});
+  res.redirect("/");
 });
 
 router.put("/api/burgers/:id", function(req, res) {
@@ -35,12 +30,13 @@ router.put("/api/burgers/:id", function(req, res) {
     condition,
     function(result) {
       if (result.changedRows == 0) {
-        return res.status(404).end();
+        return res.status(404);
       } else {
-        res.status(200).end();
+        res.status(200);
       }
     }
   );
+  res.redirect("/");
 });
 
 router.delete("/api/burgers/:id", function(req, res) {
@@ -49,11 +45,12 @@ router.delete("/api/burgers/:id", function(req, res) {
 
   burger.delete(condition, function(result) {
     if (result.changedRows == 0) {
-      return res.status(404).end();
+      return res.status(404);
     } else {
-      res.status(200).end();
+      res.status(200);
     }
   });
+  res.redirect("/");
 });
 
 module.exports = router;
